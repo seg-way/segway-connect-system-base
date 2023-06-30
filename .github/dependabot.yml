@@ -6,10 +6,10 @@
 version: 2
 updates:
   - package-ecosystem: "docker" # See documentation for possible values
-    directory: "/base/python" # Location of package manifests
+    directory: "/" # Location of package manifests
     schedule:
       interval: "weekly"
   - package-ecosystem: "python" # See documentation for possible values
-    directory: "/base" # Location of package manifests
+    directory: "/python" # Location of package manifests
     schedule:
       interval: "weekly"
