@@ -21,29 +21,10 @@
         [
             "@semantic-release/commit-analyzer",
             {
-                "preset": "conventionalcommits",
-                "presetConfig": "conventional-changelog-conventionalcommits"
+                "preset": "conventionalcommits"
             }
         ],
         "@semantic-release/release-notes-generator",
-        [
-            "@semantic-release/git",
-            {
-                "assets": [
-                    "chart/Chart.yaml"
-                ],
-                "message": "chore(release): ${nextRelease.version}\n\n${nextRelease.notes}"
-            }
-        ],
-        [
-            "@semantic-release/github",
-            {
-                "assets": [
-                    {
-                        "path": "*.tgz"
-                    }
-                ]
-            }
-        ]
+        "@semantic-release/github"            
     ]
 }
