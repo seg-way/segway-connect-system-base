@@ -25,6 +25,7 @@ RUN touch /var/log/syslog-ng.out ;\
     chmod 755 /var/log/syslog-ng.*
 
 ENV SYSLOGNG_OPTS=--no-caps
+ENV SEGWAY_SYSLOG_PORT=10514
 
 ENTRYPOINT ["/bin/entrypoint.sh"]
 
