@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi9/ubi:9.2-696
+FROM registry.access.redhat.com/ubi9/ubi:9.2-722
 
 RUN cd /tmp ;\
     dnf install 'dnf-command(copr)' -y ;\
