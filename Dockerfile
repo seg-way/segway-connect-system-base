@@ -10,8 +10,7 @@ RUN apk add -U --upgrade --no-cache \
       tzdata \
       ca-certificates \
       cargo \
-      jq ;\
-      poetry config virtualenvs.create false
+      jq
 
 # Set user and group
 ARG user=segway
@@ -22,8 +21,6 @@ RUN addgroup -g ${gid} ${group} ;\
     adduser -u ${uid} -D -G ${group} -s /bin/bash -h /home/${user} ${user}
 
 # Switch to user
-USER ${uid}:${gid}
-
 ENV SYSLOGNG_OPTS=--no-caps
 ENV SEGWAY_SYSLOG_PORT=10514
 
