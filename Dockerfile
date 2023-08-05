@@ -2,6 +2,7 @@ ARG SYSLOGNG_VERSION=4.3.1
 FROM ghcr.io/axoflow/axosyslog:${SYSLOGNG_VERSION}
 
 RUN apk add -U --upgrade --no-cache \
+      bash \
       openssl \
       py3-pip \
       python3 \
