@@ -1,28 +1,14 @@
-FROM registry.access.redhat.com/ubi9/ubi:9.2-696
+ARG SYSLOGNG_VERSION=4.3.1
+FROM ghcr.io/axoflow/axosyslog:${SYSLOGNG_VERSION}
 
-RUN cd /tmp ;\
-    dnf install 'dnf-command(copr)' -y ;\
-    dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm -y; \
-    dnf copr enable czanik/syslog-ng42  -y ;\
-    dnf install -y --allowerasing\
-    tzdata \
-    openssl jq\
-    syslog-ng syslog-ng-python syslog-ng-http syslog-ng-kafka \
-    python3-pip python3-devel \
-    procps-ng;\
-    dnf update -y ;\
-    dnf clean all
-
-RUN pip3 install poetry ;\
-    python3 -m venv /app/.venv
-
-RUN groupadd --gid 1024 syslog ;\
-    useradd -M -g 1024 -u 1024 syslog ;\
-    usermod -L syslog
-
-RUN touch /var/log/syslog-ng.out ;\
-    touch /var/log/syslog-ng.err ;\
-    chmod 755 /var/log/syslog-ng.*
+RUN apk add -U --upgrade --no-cache \
+      openssl \
+      py3-pip \
+      python3 \
+      tzdata \
+      ca-certificates \
+      poetry \
+      cargo
 
 ENV SYSLOGNG_OPTS=--no-caps
 ENV SEGWAY_SYSLOG_PORT=10514
@@ -32,7 +18,3 @@ ENTRYPOINT ["/bin/entrypoint.sh"]
 COPY bin/ /bin
 COPY etc/syslog-ng/syslog-ng.conf /etc/syslog-ng
 COPY etc/syslog-ng/conf.d /etc/syslog-ng/conf.d
-COPY python /app/python
-RUN . /app/.venv/bin/activate ;\
-    pushd /app/python ;\
-    poetry export --format requirements.txt | pip --no-cache-dir install -r /dev/stdin
