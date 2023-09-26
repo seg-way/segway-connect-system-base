@@ -1,4 +1,4 @@
-FROM ghcr.io/axoflow/axosyslog:4.3.1
+FROM ghcr.io/axoflow/axosyslog:4.4.0
 
 RUN apk add -U --upgrade --no-cache \
       bash \
