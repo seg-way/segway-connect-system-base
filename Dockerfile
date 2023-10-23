@@ -12,7 +12,7 @@ ARG user=segway
 ARG group=segway
 ARG uid=1000
 ARG gid=1000
-# hadolint ignore=DL3018
+# hadolint ignore=SC2046
 # hadolint ignore=DL3018
 RUN apk add -U --upgrade --no-cache $(cat /work/${PACKAGES}.list);\
     addgroup -g ${gid} ${group} ;\
