@@ -1,23 +1,20 @@
-FROM ghcr.io/axoflow/axosyslog:4.4.0
+ARG TARGETARCH
+ARG TARGETPLATFORM
+ARG BASE_BUILD=4.4.0
+ARG PACKAGES=base
 
-RUN apk add -U --upgrade --no-cache \
-      bash \
-      shadow \
-      python3 \
-      py3-pip \
-      poetry \
-      openssl \
-      tzdata \
-      ca-certificates \
-      cargo \
-      jq
+FROM ghcr.io/axoflow/axosyslog:${BASE_BUILD}
+
+COPY packages/${PACKAGES}.list /work
 
 # Set user and group
 ARG user=segway
 ARG group=segway
 ARG uid=1000
 ARG gid=1000
-RUN addgroup -g ${gid} ${group} ;\
+RUN apk add -U --upgrade --no-cache $(cat /work/${PACKAGES}.list);\
+    rm /work/*.list ;\
+    addgroup -g ${gid} ${group} ;\
     adduser -u ${uid} -D -G ${group} -s /bin/bash -h /home/${user} ${user}
 
 # Switch to user
