@@ -15,12 +15,11 @@ ARG gid=1000
 ENV SYSLOGNG_OPTS=--no-caps
 ENV SEGWAY_SYSLOG_PORT=10514
 
-# hadolint ignore=DL3018
 RUN addgroup -g ${gid} ${group} ;\
     adduser -u ${uid} -D -G ${group} -s /bin/bash -h /home/${user} ${user}
 
 COPY etc/syslog-ng/syslog-ng.conf /etc/syslog-ng
 COPY etc/syslog-ng/conf.d /etc/syslog-ng/conf.d
 
-# hadolint ignore=SC2046
+# hadolint ignore=SC2046,DL3018
 RUN apk add -U --upgrade --no-cache $(cat /work/${PACKAGES}.list)
