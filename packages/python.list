@@ -1,0 +1,10 @@
+bash
+shadow
+python3
+py3-pip
+poetry
+openssl
+tzdata
+ca-certificates
+cargo
+jq
