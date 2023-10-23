@@ -1,11 +1,11 @@
-ARG TARGETARCH
-ARG TARGETPLATFORM
 ARG BASE_BUILD=4.4.0
-ARG PACKAGES=base
 
 FROM ghcr.io/axoflow/axosyslog:${BASE_BUILD}
+ARG TARGETARCH
+ARG TARGETPLATFORM
+ARG PACKAGES=base
 
-COPY packages/${PACKAGES}.list /work
+COPY packages/* /work/
 
 # Set user and group
 ARG user=segway
@@ -13,7 +13,6 @@ ARG group=segway
 ARG uid=1000
 ARG gid=1000
 RUN apk add -U --upgrade --no-cache $(cat /work/${PACKAGES}.list);\
-    rm /work/*.list ;\
     addgroup -g ${gid} ${group} ;\
     adduser -u ${uid} -D -G ${group} -s /bin/bash -h /home/${user} ${user}
 
